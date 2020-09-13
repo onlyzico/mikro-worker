@@ -1,0 +1,20 @@
+{
+    "name": "onlyzico/mikro-worker",
+    "description": "A workerman class for mikro.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zico",
+            "email": "onlyzicoo@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "workerman/workerman": "^4.0.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "MikroWorker": "src/"
+        }
+    }
+}

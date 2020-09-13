@@ -16,5 +16,6 @@
         "psr-4": {
             "MikroWorker\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }

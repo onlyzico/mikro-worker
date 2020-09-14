@@ -41,6 +41,7 @@ class Worker
      */
     public function setServerVars(Request $request)
     {
+        $__SERVER = $_SERVER;
         $_SERVER = [
             'DOCUMENT_ROOT' => getcwd(),
             'HTTP_HOST' => $request->host(),
@@ -50,7 +51,23 @@ class Worker
             'REQUEST_METHOD' => $request->method(),
             'REQUEST_URI' => $request->uri(),
             'QUERY_STRING' => $request->queryString(),
-            'SCRIPT_FILENAME' => getcwd() . '/' . $_SERVER['SCRIPT_FILENAME']
+            'SCRIPT_FILENAME' => getcwd() . '/' . basename($__SERVER['SCRIPT_FILENAME']),
+            'REQUEST_TIME' => $__SERVER['REQUEST_TIME'],
+            'REQUEST_TIME_FLOAT' => $__SERVER['REQUEST_TIME_FLOAT']
         ];
+
+        foreach ($request->header() as $key => $value) {
+            $key = str_replace('-', '_', strtoupper($key));
+
+            if (in_array($key, array_keys($_SERVER))) {
+                continue;
+            }
+
+            if ( ! in_array($key, ['SERVER_ADDR'])) {
+                $key = 'HTTP_' . $key;
+            }
+
+            $_SERVER[$key] = $value;
+        }
     }
 }
